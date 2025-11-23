@@ -1,0 +1,420 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
+    --primary: 221.2 83.2% 53.3%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+    --accent: 240 4.8% 95.9%;
+    --accent-foreground: 240 5.9% 10%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 221.2 83.2% 53.3%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 217.2 91.2% 59.8%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+    --accent: 240 3.7% 15.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 224.3 76.3% 48%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Syntax Highlighting for Light Mode */
+.hljs {
+  @apply bg-muted text-foreground;
+}
+
+.hljs-comment,
+.hljs-quote {
+  @apply text-muted-foreground italic;
+}
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-addition {
+  @apply text-blue-600;
+}
+
+.hljs-number,
+.hljs-string,
+.hljs-meta .hljs-meta-string,
+.hljs-literal,
+.hljs-doctag,
+.hljs-regexp {
+  @apply text-green-600;
+}
+
+.hljs-title,
+.hljs-section,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class {
+  @apply text-purple-600 font-semibold;
+}
+
+.hljs-attribute,
+.hljs-attr,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-class .hljs-title,
+.hljs-type {
+  @apply text-orange-600;
+}
+
+.hljs-symbol,
+.hljs-bullet,
+.hljs-subst,
+.hljs-meta,
+.hljs-link {
+  @apply text-red-600;
+}
+
+.hljs-built_in,
+.hljs-deletion {
+  @apply text-cyan-600;
+}
+
+.hljs-emphasis {
+  @apply italic;
+}
+
+.hljs-strong {
+  @apply font-bold;
+}
+
+/* Syntax Highlighting for Dark Mode */
+.dark .hljs {
+  @apply bg-muted text-foreground;
+}
+
+.dark .hljs-comment,
+.dark .hljs-quote {
+  @apply text-muted-foreground italic;
+}
+
+.dark .hljs-keyword,
+.dark .hljs-selector-tag,
+.dark .hljs-addition {
+  @apply text-blue-400;
+}
+
+.dark .hljs-number,
+.dark .hljs-string,
+.dark .hljs-meta .hljs-meta-string,
+.dark .hljs-literal,
+.dark .hljs-doctag,
+.dark .hljs-regexp {
+  @apply text-green-400;
+}
+
+.dark .hljs-title,
+.dark .hljs-section,
+.dark .hljs-name,
+.dark .hljs-selector-id,
+.dark .hljs-selector-class {
+  @apply text-purple-400 font-semibold;
+}
+
+.dark .hljs-attribute,
+.dark .hljs-attr,
+.dark .hljs-variable,
+.dark .hljs-template-variable,
+.dark .hljs-class .hljs-title,
+.dark .hljs-type {
+  @apply text-orange-400;
+}
+
+.dark .hljs-symbol,
+.dark .hljs-bullet,
+.dark .hljs-subst,
+.dark .hljs-meta,
+.dark .hljs-link {
+  @apply text-red-400;
+}
+
+.dark .hljs-built_in,
+.dark .hljs-deletion {
+  @apply text-cyan-400;
+}
+
+.dark .hljs-emphasis {
+  @apply italic;
+}
+
+.dark .hljs-strong {
+  @apply font-bold;
+}
+
+.prose {
+  @apply max-w-none;
+}
+
+.prose a {
+  @apply text-primary hover:text-primary/80 transition-colors;
+}
+
+.prose h1 {
+  @apply text-4xl font-bold tracking-tight lg:text-4xl;
+}
+
+.prose h2 {
+  @apply text-3xl font-semibold tracking-tight mt-10 first:mt-0;
+}
+
+.prose h3 {
+  @apply text-2xl font-semibold tracking-tight;
+}
+
+.prose h4 {
+  @apply text-lg font-semibold tracking-tight;
+}
+
+/* Code blocks */
+.prose pre {
+  @apply bg-muted/50 backdrop-blur-sm p-0 rounded-lg overflow-hidden border border-border/50 shadow-sm;
+  position: relative;
+}
+
+.prose pre code {
+  @apply block p-4 text-sm font-mono overflow-x-auto;
+}
+
+/* Code block wrapper */
+.code-block-wrapper {
+  @apply relative my-6;
+}
+
+/* Copy button container */
+.copy-button-container {
+  @apply absolute top-0 right-0 z-10;
+}
+
+/* Inline code */
+.prose :not(pre) > code {
+  @apply bg-muted px-1.5 py-0.5 rounded-md text-sm font-mono text-primary;
+}
+
+/* Code block line numbers (optional) */
+.prose pre code .hljs-ln-numbers {
+  @apply text-muted-foreground pr-4 select-none;
+}
+
+/* Language indicator */
+.prose pre[data-language]::before {
+  content: attr(data-language);
+  @apply absolute top-3 left-4 text-xs text-muted-foreground font-medium uppercase tracking-wider;
+}
+
+/* Add padding when language indicator is present */
+.prose pre[data-language] code {
+  @apply pt-10;
+}
+
+/* Code block hover effect */
+.prose pre:hover {
+  @apply border-border;
+}
+
+/* Custom scrollbar for code blocks */
+.prose pre code::-webkit-scrollbar {
+  @apply h-2;
+}
+
+.prose pre code::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+
+.prose pre code::-webkit-scrollbar-thumb {
+  @apply bg-border/50 rounded;
+}
+
+.prose pre code::-webkit-scrollbar-thumb:hover {
+  @apply bg-border;
+}
+
+.prose img {
+  @apply rounded-lg border border-border;
+}
+
+.prose blockquote {
+  @apply border-l-4 border-border pl-4 italic;
+}
+
+.prose ul {
+  @apply list-disc pl-6;
+}
+
+.prose ol {
+  @apply list-decimal pl-6;
+}
+
+.prose table {
+  @apply w-full border-collapse;
+}
+
+.prose thead {
+  @apply bg-muted;
+}
+
+.prose th,
+.prose td {
+  @apply border border-border p-2 text-left;
+}
+
+@keyframes bounce-slow {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(10deg);
+  }
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-bounce-slow {
+  animation: bounce-slow 3s ease-in-out infinite;
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradient 6s ease infinite;
+}
+
+.animation-delay-2000 {
+  animation-delay: 2s;
+}
+
+.animation-delay-3000 {
+  animation-delay: 3s;
+}
+
+.animation-delay-4000 {
+  animation-delay: 4s;
+}
+
+/* Grid background pattern */
+.bg-grid {
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 50px 50px;
+}
+
+@keyframes highlight {
+  0% {
+    @apply ring-primary/40;
+  }
+  100% {
+    @apply ring-primary/0;
+  }
+}
+
+/* Smooth scroll behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Heading hover styles */
+.prose h1:target,
+.prose h2:target,
+.prose h3:target,
+.prose h4:target,
+.prose h5:target,
+.prose h6:target {
+  animation: highlight 2s ease-out;
+  box-shadow: none;
+  margin-left: 0;
+  margin-right: 0;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.prose h1 a,
+.prose h2 a,
+.prose h3 a,
+.prose h4 a,
+.prose h5 a,
+.prose h6 a {
+  @apply text-inherit no-underline;
+}
+
+/* Copy button animation */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-in {
+  animation: fade-in 0.2s ease-out;
+}

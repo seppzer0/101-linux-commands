@@ -1,0 +1,86 @@
+import { notFound } from 'next/navigation';
+import { getExerciseById, getAllExercises } from '@/lib/exercises';
+import { ExerciseDetailClient } from '@/components/exercise-detail-client';
+import { BreadcrumbSchema } from '@/components/schema-markup';
+import { getSocialImagePath } from '@/lib/image-utils';
+import type { Metadata } from 'next';
+
+export const dynamicParams = false;
+
+export async function generateStaticParams() {
+  try {
+    const exercises = await getAllExercises();
+    return exercises.map((exercise) => ({
+      id: exercise.id,
+    }));
+  } catch (error) {
+    console.warn('Error generating static params for exercises:', error);
+    return [];
+  }
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}): Promise<Metadata> {
+  const { id } = await params;
+  const exercise = await getExerciseById(id);
+
+  if (!exercise) {
+    return {};
+  }
+
+  const socialImage = getSocialImagePath(exercise.id, 'exercises');
+
+  return {
+    title: `${exercise.title} - DevOps Exercise`,
+    description: exercise.description,
+    alternates: {
+      canonical: `/exercises/${exercise.id}`,
+    },
+    openGraph: {
+      title: `${exercise.title} - DevOps Exercise`,
+      description: exercise.description,
+      url: `/exercises/${exercise.id}`,
+      type: 'article',
+      images: [
+        {
+          url: socialImage,
+          width: 1200,
+          height: 630,
+          alt: exercise.title,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${exercise.title} - DevOps Exercise`,
+      description: exercise.description,
+      images: [socialImage],
+    },
+  };
+}
+
+export default async function ExerciseDetailPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  const exercise = await getExerciseById(id);
+
+  if (!exercise) {
+    notFound();
+  }
+
+  // Breadcrumb items for schema
+  const schemaItems = [
+    { name: 'Home', url: '/' },
+    { name: 'Exercises', url: '/exercises' },
+    { name: exercise.title, url: `/exercises/${exercise.id}` },
+  ];
+
+  return (
+    <>
+      <BreadcrumbSchema items={schemaItems} />
+      <ExerciseDetailClient exercise={exercise} />
+    </>
+  );
+}
