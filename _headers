@@ -1,9 +1,19 @@
+/*
+  Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: SAMEORIGIN
+  Content-Security-Policy: default-src 'self'
+
 /sw.js
   Service-Worker-Allowed: /
   Cache-Control: no-cache
 
 /offline.html
   Cache-Control: public, max-age=86400
+
+/404.html
+  Content-Type: text/html; charset=utf-8
+  Cache-Control: public, max-age=3600
 
 /_next/static/*
   Cache-Control: public, max-age=31536000, immutable
