@@ -2,7 +2,7 @@
   Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
   X-Content-Type-Options: nosniff
   X-Frame-Options: SAMEORIGIN
-  Content-Security-Policy: default-src 'self'
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'
 
 /sw.js
   Service-Worker-Allowed: /
