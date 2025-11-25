@@ -522,7 +522,7 @@ export default function ToolboxPage() {
                 engineers. Let us know if you have a suggestion!
               </p>
               <Button asChild size="lg">
-                <a href="https://github.com/The-DevOps-Daily/feedback/issues/new/choose">
+                <a href="https://github.com/The-DevOps-Daily/devops-daily/issues/new/choose">
                   Submit a Tool
                 </a>
               </Button>

@@ -265,7 +265,7 @@ export default async function GamesPage() {
             </p>
             <Button size="lg" className="shadow-lg hover:shadow-xl transition-shadow">
               <Dice6 className="mr-2 h-4 w-4" />
-              <Link href="https://github.com/The-DevOps-Daily/feedback/issues/new/choose">
+              <Link href="https://github.com/The-DevOps-Daily/devops-daily/issues/new/choose">
                 Suggest a Game
               </Link>
             </Button>

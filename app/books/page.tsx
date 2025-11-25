@@ -489,7 +489,7 @@ export default function BooksPage() {
               </p>
               <Button size="lg" asChild className="shadow-lg hover:shadow-xl transition-all group">
                 <a
-                  href={`https://github.com/The-DevOps-Daily/feedback/issues/new?${new URLSearchParams(
+                  href={`https://github.com/The-DevOps-Daily/devops-daily/issues/new?${new URLSearchParams(
                     {
                       title: 'Book Suggestion: [Book Title]',
                       body: `## Book Suggestion

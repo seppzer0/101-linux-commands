@@ -182,7 +182,7 @@ export function QuizManager({ quizzes, className }: QuizManagerProps) {
             and more DevOps topics.
           </p>
           <Button variant="outline" asChild>
-            <Link href="https://github.com/The-DevOps-Daily/feedback/issues/new/choose">
+            <Link href="https://github.com/The-DevOps-Daily/devops-daily/issues/new/choose">
               Suggest a Quiz Topic
             </Link>
           </Button>

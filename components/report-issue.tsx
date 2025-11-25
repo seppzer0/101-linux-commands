@@ -26,7 +26,7 @@ export function ReportIssue({
 
   // Generate the GitHub issue URL with pre-filled title if possible
   const generateIssueUrl = () => {
-    const baseUrl = 'https://github.com/The-DevOps-Daily/feedback/issues/new';
+    const baseUrl = 'https://github.com/The-DevOps-Daily/devops-daily/issues/new';
 
     if (!title) {
       return baseUrl;

@@ -102,7 +102,7 @@ Starting next week, you'll receive comprehensive weekly digests packed with:
 
 ### Feedback Welcome
 
-We're constantly improving this digest to serve you better. If you have suggestions for sources we should monitor, categories we should add, or any other feedback, please [let us know](https://github.com/The-DevOps-Daily/feedback/issues/new?title=Issue+with+news%3A+DevOps+Weekly+Digest+-+Week+45%2C+2025&body=I+found+an+issue+with+this+news%3A%0A%0A**URL%3A**+https%3A%2F%2Fdevops-daily.com%2Fnews%2F2025-week-45%0A**News+Slug%3A**+2025-week-45%0A%0A**Description%3A**%0A%3C%21--+Please+describe+the+issue+you+found+--%3E%0A%0A**Expected+behavior%3A**%0A%3C%21--+What+should+happen+instead%3F+--%3E%0A%0A**Additional+context%3A**%0A%3C%21--+Any+other+context+about+the+problem+--%3E&labels=content-issue%2Cnews).
+We're constantly improving this digest to serve you better. If you have suggestions for sources we should monitor, categories we should add, or any other feedback, please [let us know](https://github.com/The-DevOps-Daily/devops-daily/issues/new?title=Issue+with+news%3A+DevOps+Weekly+Digest+-+Week+45%2C+2025&body=I+found+an+issue+with+this+news%3A%0A%0A**URL%3A**+https%3A%2F%2Fdevops-daily.com%2Fnews%2F2025-week-45%0A**News+Slug%3A**+2025-week-45%0A%0A**Description%3A**%0A%3C%21--+Please+describe+the+issue+you+found+--%3E%0A%0A**Expected+behavior%3A**%0A%3C%21--+What+should+happen+instead%3F+--%3E%0A%0A**Additional+context%3A**%0A%3C%21--+Any+other+context+about+the+problem+--%3E&labels=content-issue%2Cnews).
 
 ---
 
