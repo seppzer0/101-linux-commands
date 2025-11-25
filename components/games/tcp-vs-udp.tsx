@@ -50,7 +50,7 @@ const StatCard = ({ label, value, color, icon: Icon, subtext }: {
   icon: React.ComponentType<{ size?: number; color?: string }>;
   subtext?: string
 }) => (
-  <div className="bg-slate-800/80 backdrop-blur-sm p-3 rounded-lg border border-slate-700 flex flex-col items-center justify-center min-w-[100px] flex-1">
+  <div className="bg-slate-200/80 dark:bg-slate-800/80 backdrop-blur-sm p-3 rounded-lg border border-slate-300 dark:border-slate-700 flex flex-col items-center justify-center min-w-[100px] flex-1">
     <div className="flex items-center gap-2 mb-1">
       <Icon size={16} color={color} />
       <span className="text-xs text-slate-400 uppercase tracking-wider font-bold">{label}</span>
@@ -277,14 +277,14 @@ export default function TcpVsUdpSimulator() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 p-4 sm:p-6 lg:p-8">
+    <div className="min-h-screen bg-gradient-to-b from-slate-50 via-slate-100 to-slate-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 p-4 sm:p-6 lg:p-8">
       <div className="max-w-7xl mx-auto space-y-6">
         <div className="text-center space-y-3 mb-8">
-          <h1 className="text-4xl md:text-5xl font-bold text-white flex items-center justify-center gap-3">
+          <h1 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white flex items-center justify-center gap-3">
             <ArrowRightLeft className="text-cyan-500" size={40} />
             TCP vs UDP Simulator
           </h1>
-          <p className="text-slate-400 text-lg max-w-2xl mx-auto">
+          <p className="text-slate-600 dark:text-slate-400 text-lg max-w-2xl mx-auto">
             Visualize the differences between TCP's reliable, connection-oriented protocol and UDP's fast, connectionless approach.
           </p>
         </div>
@@ -304,30 +304,30 @@ export default function TcpVsUdpSimulator() {
             UDP Mode
           </button>
         </div>
-        <div className="bg-blue-500/10 border border-blue-500/30 rounded-lg p-4 flex items-start gap-3">
+        <div className="bg-blue-100 dark:bg-blue-500/10 border border-blue-500/30 rounded-lg p-4 flex items-start gap-3">
           <Info className="text-blue-400 flex-shrink-0 mt-0.5" size={20} />
-          <p className="text-blue-100 text-sm">{educationalMessage}</p>
+          <p className="text-blue-900 dark:text-blue-100 text-sm">{educationalMessage}</p>
         </div>
         <div 
           ref={containerRef}
-          className="bg-slate-900 border-2 border-slate-700 rounded-xl overflow-hidden relative"
+          className="bg-slate-100 dark:bg-slate-900 border-2 border-slate-300 dark:border-slate-700 rounded-xl overflow-hidden relative"
           style={{ height: '400px' }}
         >
           <div className="absolute top-4 left-4 flex items-center gap-2 z-10">
-            <div className="w-12 h-12 bg-slate-800 rounded-lg border-2 border-cyan-500 flex items-center justify-center">
+            <div className="w-12 h-12 bg-slate-200 dark:bg-slate-800 rounded-lg border-2 border-cyan-500 flex items-center justify-center">
               <Wifi className="text-cyan-500" size={24} />
             </div>
             <div>
-              <div className="text-xs text-slate-500 uppercase">Client</div>
-              <div className="text-sm font-bold text-white">192.168.1.10</div>
+              <div className="text-xs text-slate-700 dark:text-slate-500 uppercase">Client</div>
+              <div className="text-sm font-bold text-slate-900 dark:text-white">192.168.1.10</div>
             </div>
           </div>
           <div className="absolute top-4 right-4 flex items-center gap-2 z-10">
             <div>
-              <div className="text-xs text-slate-500 uppercase text-right">Server</div>
-              <div className="text-sm font-bold text-white text-right">203.0.113.5</div>
+              <div className="text-xs text-slate-700 dark:text-slate-500 uppercase text-right">Server</div>
+              <div className="text-sm font-bold text-slate-900 dark:text-white text-right">203.0.113.5</div>
             </div>
-            <div className="w-12 h-12 bg-slate-800 rounded-lg border-2 border-green-500 flex items-center justify-center">
+            <div className="w-12 h-12 bg-slate-200 dark:bg-slate-800 rounded-lg border-2 border-green-500 flex items-center justify-center">
               <Activity className="text-green-500" size={24} />
             </div>
           </div>
@@ -354,8 +354,8 @@ export default function TcpVsUdpSimulator() {
             <div className="absolute inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-20">
               <div className="text-center">
                 <Lock className="text-fuchsia-500 mx-auto mb-2" size={48} />
-                <div className="text-xl font-bold text-white">3-Way Handshake in Progress</div>
-                <div className="text-sm text-slate-400 mt-1">
+                <div className="text-xl font-bold text-slate-900 dark:text-white">3-Way Handshake in Progress</div>
+                <div className="text-sm text-slate-600 dark:text-slate-400 mt-1">
                   {connState === CONNECTION_STATES.HANDSHAKE_SYN && 'Sending SYN...'}
                   {connState === CONNECTION_STATES.HANDSHAKE_SYN_ACK && 'Receiving SYN-ACK...'}
                   {connState === CONNECTION_STATES.HANDSHAKE_ACK && 'Sending ACK...'}
@@ -371,9 +371,9 @@ export default function TcpVsUdpSimulator() {
           <StatCard label="Retransmits" value={stats.retransmits} color={COLORS.ack} icon={RefreshCw} subtext="TCP Only" />
         </div>
         <div className="grid md:grid-cols-2 gap-6">
-          <div className="bg-slate-800 rounded-xl p-4 border border-slate-700">
+          <div className="bg-slate-200 dark:bg-slate-800 rounded-xl p-4 border border-slate-300 dark:border-slate-700">
             <div className="flex justify-between items-center mb-4">
-              <h3 className="text-sm font-bold text-cyan-400 uppercase tracking-wider flex items-center gap-2">
+              <h3 className="text-sm font-bold text-cyan-600 dark:text-cyan-400 uppercase tracking-wider flex items-center gap-2">
                 <Activity size={16} /> Simulation Control</h3>
               <div className="flex gap-2">
                 <button 
@@ -384,7 +384,7 @@ export default function TcpVsUdpSimulator() {
                 </button>
                 <button 
                   onClick={handleReset}
-                  className="p-2 rounded-full bg-slate-700 text-slate-300 hover:bg-slate-600 transition-colors"
+                  className="p-2 rounded-full bg-slate-300 dark:bg-slate-700 text-slate-700 dark:text-slate-700 dark:text-slate-300 hover:bg-slate-600 transition-colors"
                 >
                   <RefreshCw size={20} />
                 </button>
@@ -399,16 +399,16 @@ export default function TcpVsUdpSimulator() {
                 <input 
                   type="range" min="10" max="100" value={speed} 
                   onChange={(e) => setSpeed(Number(e.target.value))}
-                  className="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-cyan-500"
+                  className="w-full h-2 bg-slate-300 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-cyan-500"
                 />
               </div>
             </div>
           </div>
-          <div className="bg-slate-800 rounded-xl p-4 border border-slate-700 relative overflow-hidden">
+          <div className="bg-slate-200 dark:bg-slate-800 rounded-xl p-4 border border-slate-300 dark:border-slate-700 relative overflow-hidden">
             <div className="absolute top-0 right-0 p-2 opacity-10 pointer-events-none">
               <AlertTriangle size={100} />
             </div>
-            <h3 className="text-sm font-bold text-red-400 uppercase tracking-wider mb-4 flex items-center gap-2">
+            <h3 className="text-sm font-bold text-red-600 dark:text-red-400 uppercase tracking-wider mb-4 flex items-center gap-2">
               <AlertTriangle size={16} /> Network Conditions
             </h3>
             <div className="space-y-4 relative z-10">
@@ -420,7 +420,7 @@ export default function TcpVsUdpSimulator() {
                 <input 
                   type="range" min="0" max="50" value={packetLossChance} 
                   onChange={(e) => setPacketLossChance(Number(e.target.value))}
-                  className="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-red-500"
+                  className="w-full h-2 bg-slate-300 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-red-500"
                 />
               </div>
               <div>
@@ -431,30 +431,30 @@ export default function TcpVsUdpSimulator() {
                 <input 
                   type="range" min="0" max="100" value={jitter} 
                   onChange={(e) => setJitter(Number(e.target.value))}
-                  className="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-amber-500"
+                  className="w-full h-2 bg-slate-300 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-amber-500"
                 />
               </div>
             </div>
           </div>
         </div>
-        <div className="bg-black/50 rounded-lg p-4 font-mono text-xs h-32 overflow-hidden border border-slate-800">
+        <div className="bg-slate-100/90 dark:bg-black/50 rounded-lg p-4 font-mono text-xs h-32 overflow-hidden border border-slate-300 dark:border-slate-800">
           <div className="flex justify-between items-center mb-2 border-b border-slate-800 pb-1">
-            <span className="text-slate-500">SYSTEM LOG</span>
-            <span className="text-slate-600">LIVE</span>
+            <span className="text-slate-700 dark:text-slate-500">SYSTEM LOG</span>
+            <span className="text-slate-400 dark:text-slate-600">LIVE</span>
           </div>
           <div className="flex flex-col-reverse gap-1">
-            {logs.length === 0 && <span className="text-slate-700 italic">Waiting for traffic...</span>}
+            {logs.length === 0 && <span className="text-slate-500 dark:text-slate-700 italic">Waiting for traffic...</span>}
             {logs.map(log => (
-              <div key={log.id} className={`${log.type === 'error' ? 'text-red-400' : log.type === 'syn' ? 'text-fuchsia-400' : 'text-slate-300'} animate-in fade-in slide-in-from-left-4`}>
-                <span className="text-slate-600 mr-2">[{new Date(log.id).toLocaleTimeString().split(' ')[0]}]</span>
+              <div key={log.id} className={`${log.type === 'error' ? 'text-red-400' : log.type === 'syn' ? 'text-fuchsia-400' : 'text-slate-700 dark:text-slate-300'} animate-in fade-in slide-in-from-left-4`}>
+                <span className="text-slate-500 dark:text-slate-600 mr-2">[{new Date(log.id).toLocaleTimeString().split(' ')[0]}]</span>
                 {log.text}
               </div>
             ))}
           </div>
         </div>
         <div className="text-center mt-4">
-          <p className="text-slate-500 text-sm">
-            Experiment by increasing \"Packet Loss\" to see how TCP retries vs UDP just loses data.
+          <p className="text-slate-600 dark:text-slate-500 text-sm">
+            Experiment by increasing "Packet Loss" to see how TCP retries vs UDP just loses data.
           </p>
         </div>
       </div>
