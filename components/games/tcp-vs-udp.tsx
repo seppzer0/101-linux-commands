@@ -3,7 +3,6 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Play, Pause, RefreshCw, Wifi, WifiOff, Shield, Zap, Activity, AlertTriangle, Info, Lock, ArrowRightLeft } from 'lucide-react';
 
-// --- Constants & Config ---
 const COLORS = {
   bg: '#0f172a',
   panel: '#1e293b',
@@ -32,7 +31,6 @@ const CONNECTION_STATES = {
 type Mode = typeof MODES[keyof typeof MODES];
 type ConnectionState = typeof CONNECTION_STATES[keyof typeof CONNECTION_STATES];
 
-// --- Helper Components ---
 const Tooltip = ({ children, text }: { children: React.ReactNode; text: string }) => (
   <div className="group relative flex items-center">
     {children}
@@ -277,28 +275,19 @@ export default function TcpVsUdpSimulator() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-50 via-slate-100 to-slate-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 p-4 sm:p-6 lg:p-8">
-      <div className="max-w-7xl mx-auto space-y-6">
-        <div className="text-center space-y-3 mb-8">
-          <h1 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white flex items-center justify-center gap-3">
-            <ArrowRightLeft className="text-cyan-500" size={40} />
-            TCP vs UDP Simulator
-          </h1>
-          <p className="text-slate-600 dark:text-slate-400 text-lg max-w-2xl mx-auto">
-            Visualize the differences between TCP's reliable, connection-oriented protocol and UDP's fast, connectionless approach.
-          </p>
-        </div>
+    <div className="w-full p-4 sm:p-6 lg:p-8">
+      <div className="w-full mx-auto space-y-6">
         <div className="flex justify-center gap-4 mb-6">
           <button
             onClick={() => handleModeChange(MODES.TCP)}
-            className={`px-8 py-3 rounded-lg font-bold text-lg transition-all ${mode === MODES.TCP ? 'bg-cyan-500 text-white shadow-lg shadow-cyan-500/30' : 'bg-slate-800 text-slate-400 hover:bg-slate-700'}`}
+            className={`px-8 py-3 rounded-lg font-bold text-lg transition-all ${mode === MODES.TCP ? 'bg-cyan-500 text-white shadow-lg shadow-cyan-500/30' : 'bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-400 hover:bg-slate-300 dark:hover:bg-slate-700'}`}
           >
             <Shield className="inline mr-2" size={20} />
             TCP Mode
           </button>
           <button
             onClick={() => handleModeChange(MODES.UDP)}
-            className={`px-8 py-3 rounded-lg font-bold text-lg transition-all ${mode === MODES.UDP ? 'bg-green-500 text-white shadow-lg shadow-green-500/30' : 'bg-slate-800 text-slate-400 hover:bg-slate-700'}`}
+            className={`px-8 py-3 rounded-lg font-bold text-lg transition-all ${mode === MODES.UDP ? 'bg-green-500 text-white shadow-lg shadow-green-500/30' : 'bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-400 hover:bg-slate-300 dark:hover:bg-slate-700'}`}
           >
             <Zap className="inline mr-2" size={20} />
             UDP Mode
@@ -311,7 +300,7 @@ export default function TcpVsUdpSimulator() {
         <div 
           ref={containerRef}
           className="bg-slate-100 dark:bg-slate-900 border-2 border-slate-300 dark:border-slate-700 rounded-xl overflow-hidden relative"
-          style={{ height: '400px' }}
+          style={{ height: '500px' }}
         >
           <div className="absolute top-4 left-4 flex items-center gap-2 z-10">
             <div className="w-12 h-12 bg-slate-200 dark:bg-slate-800 rounded-lg border-2 border-cyan-500 flex items-center justify-center">
@@ -378,13 +367,13 @@ export default function TcpVsUdpSimulator() {
               <div className="flex gap-2">
                 <button 
                   onClick={handleStartStop}
-                  className={`p-2 rounded-full ${isPlaying ? 'bg-amber-500/20 text-amber-500' : 'bg-green-500/20 text-green-500'} hover:bg-white/10 transition-colors`}
+                  className={`p-2 rounded-full ${isPlaying ? 'bg-amber-500/20 text-amber-500' : 'bg-green-500/20 text-green-500'} hover:bg-white/10 dark:hover:bg-white/10 transition-colors`}
                 >
                   {isPlaying ? <Pause size={20} /> : <Play size={20} />}
                 </button>
                 <button 
                   onClick={handleReset}
-                  className="p-2 rounded-full bg-slate-300 dark:bg-slate-700 text-slate-700 dark:text-slate-700 dark:text-slate-300 hover:bg-slate-600 transition-colors"
+                  className="p-2 rounded-full bg-slate-300 dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-400 dark:hover:bg-slate-600 transition-colors"
                 >
                   <RefreshCw size={20} />
                 </button>
@@ -393,7 +382,7 @@ export default function TcpVsUdpSimulator() {
             <div className="space-y-4">
               <div>
                 <div className="flex justify-between text-xs mb-1">
-                  <span>Traffic Speed</span>
+                  <span className="text-slate-700 dark:text-slate-300">Traffic Speed</span>
                   <span className="text-cyan-400">{speed}%</span>
                 </div>
                 <input 
@@ -414,7 +403,7 @@ export default function TcpVsUdpSimulator() {
             <div className="space-y-4 relative z-10">
               <div>
                 <div className="flex justify-between text-xs mb-1">
-                  <span className="flex items-center gap-1">Packet Loss <Tooltip text="Randomly destroys packets in transit."><Info size={12} className="text-slate-500"/></Tooltip></span>
+                  <span className="flex items-center gap-1 text-slate-700 dark:text-slate-300">Packet Loss <Tooltip text="Randomly destroys packets in transit."><Info size={12} className="text-slate-500"/></Tooltip></span>
                   <span className="text-red-400">{packetLossChance / 10}%</span>
                 </div>
                 <input 
@@ -425,7 +414,7 @@ export default function TcpVsUdpSimulator() {
               </div>
               <div>
                 <div className="flex justify-between text-xs mb-1">
-                  <span className="flex items-center gap-1">Jitter (Instability) <Tooltip text="Adds random variance to packet timing and path."><Info size={12} className="text-slate-500"/></Tooltip></span>
+                  <span className="flex items-center gap-1 text-slate-700 dark:text-slate-300">Jitter (Instability) <Tooltip text="Adds random variance to packet timing and path."><Info size={12} className="text-slate-500"/></Tooltip></span>
                   <span className="text-amber-400">{jitter}%</span>
                 </div>
                 <input 
@@ -438,7 +427,7 @@ export default function TcpVsUdpSimulator() {
           </div>
         </div>
         <div className="bg-slate-100/90 dark:bg-black/50 rounded-lg p-4 font-mono text-xs h-32 overflow-hidden border border-slate-300 dark:border-slate-800">
-          <div className="flex justify-between items-center mb-2 border-b border-slate-800 pb-1">
+          <div className="flex justify-between items-center mb-2 border-b border-slate-300 dark:border-slate-800 pb-1">
             <span className="text-slate-700 dark:text-slate-500">SYSTEM LOG</span>
             <span className="text-slate-400 dark:text-slate-600">LIVE</span>
           </div>
