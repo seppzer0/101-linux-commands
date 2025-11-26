@@ -2,15 +2,15 @@ import { Metadata } from 'next';
 import { ClientContent } from './client-content';
 
 export const metadata: Metadata = {
-  title: 'DevOps Survival Guide | Real-world DevOps without the BS',
-  description: 'A comprehensive ebook for engineers who want to master DevOps practices without burning out. Get early access to chapters on infrastructure, monitoring, on-call, security, and more.',
-  alternates: {
+ title: 'DevOps Survival Guide | Real-world DevOps without the BS',
+ description: 'A practical ebook for engineers who want to master DevOps practices without burning out. Get early access to chapters on infrastructure, monitoring, on-call, security, and more.',
+ alternates: {
     canonical: '/books/devops-survival-guide',
   },
   openGraph: {
-    title: 'DevOps Survival Guide - Real-world DevOps without the BS',
-    description: 'A comprehensive ebook for engineers who want to master DevOps practices without burning out. 14 chapters covering everything from your first day to driving organizational change.',
-    type: 'website',
+   title: 'DevOps Survival Guide - Real-world DevOps without the BS',
+   description: 'A practical ebook for engineers who want to master DevOps practices without burning out. 14 chapters covering everything from your first day to driving organizational change.',
+   type: 'website',
     url: '/books/devops-survival-guide',
    images: [
      {
@@ -23,9 +23,9 @@ export const metadata: Metadata = {
   },
   twitter: {
    card: 'summary_large_image',
-   title: 'DevOps Survival Guide - Real-world DevOps without the BS',
-   description: 'A comprehensive ebook for engineers who want to master DevOps practices without burning out.',
-   images: ['/images/books/devops-survival-guide-og.png'],
+  title: 'DevOps Survival Guide - Real-world DevOps without the BS',
+  description: 'A practical ebook for engineers who want to master DevOps practices without burning out.',
+  images: ['/images/books/devops-survival-guide-og.png'],
  },
 };
 
