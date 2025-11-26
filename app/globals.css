@@ -357,6 +357,10 @@
   animation-delay: 4s;
 }
 
+.animation-delay-1000 {
+  animation-delay: 1s;
+}
+
 /* Grid background pattern */
 .bg-grid {
   background-image:
