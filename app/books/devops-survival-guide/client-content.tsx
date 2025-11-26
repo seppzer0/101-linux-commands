@@ -453,73 +453,6 @@ export function ClientContent() {
         </div>
       </section>
 
-      {/* Newsletter CTA Section - Enhanced */}
-      <section id="subscribe" className="py-20 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-pink-500/10" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(59,130,246,0.1),transparent_70%)]" />
-
-        <div className="container mx-auto px-4 relative">
-          <div className="max-w-4xl mx-auto">
-            <Card className="border-2 border-primary/20 shadow-2xl backdrop-blur-sm bg-background/95 relative overflow-hidden">
-              {/* Animated border effect */}
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 opacity-0 blur group-hover:opacity-20 transition-opacity" />
-
-              <CardHeader className="text-center pb-6">
-                <div className="mb-6">
-                  <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-br from-blue-600 to-purple-600 p-5 shadow-lg">
-                    <Mail className="w-full h-full text-white" />
-                  </div>
-                </div>
-
-                <CardTitle className="text-3xl md:text-4xl mb-4">
-                  Get Early Access to New Chapters
-                </CardTitle>
-                <CardDescription className="text-lg max-w-2xl mx-auto">
-                  Be the first to read new chapters as they're published. Join our community of DevOps
-                  professionals and get exclusive updates, bonus content, and behind-the-scenes insights.
-                </CardDescription>
-
-                <div className="flex flex-wrap justify-center gap-4 mt-8">
-                  {[
-                  { icon: CheckCircle, text: 'Early chapter access' },
-                  { icon: Sparkles, text: 'Exclusive bonus content' },
-                  { icon: Users, text: 'Community discussions' },
-                  { icon: Gift, text: 'Special launch pricing' },
-                ].map((benefit, idx) => (
-                    <div key={idx} className="flex items-center gap-2 text-sm">
-                      <benefit.icon className="w-4 h-4 text-primary" />
-                      <span className="text-sm font-medium">{benefit.text}</span>
-                    </div>
-                  ))}
-                </div>
-              </CardHeader>
-
-              <CardContent className="pb-8">
-                <div className="max-w-md mx-auto">
-                  <Button
-                    asChild
-                    size="lg"
-                    className="w-full text-lg py-7 shadow-xl shadow-blue-500/30 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 transition-all hover:scale-105 group relative overflow-hidden"
-                  >
-                    <Link href="#subscribe">
-                      <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform" />
-                      <Mail className="mr-2 h-5 w-5 relative z-10" />
-                      <span className="relative z-10">Get Early Access to New Chapters</span>
-                      <Sparkles className="ml-2 h-5 w-5 relative z-10" />
-                    </Link>
-                  </Button>
-
-                  <p className="text-center text-sm text-muted-foreground mt-4 flex items-center justify-center gap-2">
-                    <Shield className="w-4 h-4" />
-                    No spam, ever. Unsubscribe anytime.
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
-
       {/* FAQ Section */}
       <section className="py-20 bg-muted/30">
         <div className="container mx-auto px-4">
@@ -582,10 +515,10 @@ export function ClientContent() {
               <Rocket className="h-16 w-16 mx-auto text-primary relative" />
             </div>
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Ready to Level Up Your DevOps Game?
+              Get Early Access & Level Up Your DevOps Game
             </h2>
             <p className="text-xl text-muted-foreground mb-8">
-              Join 1,000+ engineers waiting for the DevOps Survival Guide
+              Be the first to read new chapters as they're published. Join 1,000+ engineers for exclusive updates, bonus content, and behind-the-scenes insights.
             </p>
 
             {/* Newsletter Signup Form */}

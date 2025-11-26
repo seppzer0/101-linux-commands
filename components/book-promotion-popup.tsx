@@ -1,17 +1,17 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { BookOpen, X, Sparkles, Gift, Zap, TrendingUp } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import confetti from 'canvas-confetti';
+import Confetti from 'react-confetti'
 
 export function BookPromotionPopup() {
   const [isVisible, setIsVisible] = useState(false)
   const [isLoaded, setIsLoaded] = useState(false)
   const [email, setEmail] = useState('')
   const [showThankYou, setShowThankYou] = useState(false)
-  const confettiTriggered = useRef(false)
+  const [showConfetti, setShowConfetti] = useState(false)
 
   useEffect(() => {
     // Check if user has already dismissed or subscribed
@@ -26,57 +26,21 @@ export function BookPromotionPopup() {
     const timer = setTimeout(() => {
       setIsVisible(true)
       // Small delay for animation
-      setTimeout(() => setIsLoaded(true), 100)
+      setTimeout(() => {
+        setIsLoaded(true)
+        // Trigger confetti after popup loads
+        setTimeout(() => setShowConfetti(true), 400)
+      }, 100)
     }, 10000)
 
-    return () => clearTimeout(timer)
+    return () => {
+      clearTimeout(timer)
+      setShowConfetti(false)
+    }
   }, [])
 
-  // Trigger confetti when popup becomes visible
-  useEffect(() => {
-    if (isVisible && isLoaded && !confettiTriggered.current) {
-      confettiTriggered.current = true
-      
-      // Initial burst from multiple angles
-      setTimeout(() => {
-        const duration = 3000
-        const animationEnd = Date.now() + duration
-        const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 9999 }
-
-        const randomInRange = (min: number, max: number) => {
-          return Math.random() * (max - min) + min
-        }
-
-        const interval: any = setInterval(() => {
-          const timeLeft = animationEnd - Date.now()
-
-          if (timeLeft <= 0) {
-            return clearInterval(interval)
-          }
-
-          const particleCount = 50 * (timeLeft / duration)
-
-          // Confetti from left side
-          confetti({
-            ...defaults,
-            particleCount,
-            origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 },
-            colors: ['#3b82f6', '#8b5cf6', '#ec4899', '#06b6d4', '#10b981', '#f59e0b'],
-          })
-
-          // Confetti from right side
-          confetti({
-            ...defaults,
-            particleCount,
-            origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 },
-            colors: ['#3b82f6', '#8b5cf6', '#ec4899', '#06b6d4', '#10b981', '#f59e0b'],
-          })
-        }, 250)
-      }, 400) // Delay to sync with popup animation
-    }
-  }, [isVisible, isLoaded])
-
   const handleDismiss = () => {
+    setShowConfetti(false)
     setIsLoaded(false)
     setTimeout(() => {
       setIsVisible(false)
@@ -102,37 +66,12 @@ export function BookPromotionPopup() {
     setShowThankYou(true)
     localStorage.setItem('book-promo-subscribed', 'true')
 
-    // Celebration confetti for subscription
-    confetti({
-      particleCount: 100,
-      spread: 70,
-      origin: { y: 0.6 },
-      colors: ['#3b82f6', '#8b5cf6', '#ec4899', '#10b981', '#f59e0b'],
-      zIndex: 9999,
-    })
-
-    // Additional star burst
-    setTimeout(() => {
-      confetti({
-        particleCount: 50,
-        angle: 60,
-        spread: 55,
-        origin: { x: 0 },
-        colors: ['#3b82f6', '#8b5cf6', '#ec4899'],
-        zIndex: 9999,
-      })
-      confetti({
-        particleCount: 50,
-        angle: 120,
-        spread: 55,
-        origin: { x: 1 },
-        colors: ['#10b981', '#f59e0b', '#06b6d4'],
-        zIndex: 9999,
-      })
-    }, 250)
+    // Show celebration confetti
+    setShowConfetti(true)
 
     // Auto-close after 3 seconds
     setTimeout(() => {
+      setShowConfetti(false)
       setIsLoaded(false)
       setTimeout(() => setIsVisible(false), 300)
     }, 3000)
@@ -142,6 +81,18 @@ export function BookPromotionPopup() {
 
   return (
     <AnimatePresence>
+      {showConfetti && (
+        <div className="fixed inset-0 z-[9999] pointer-events-none">
+          <Confetti
+            width={typeof window !== 'undefined' ? window.innerWidth : 1000}
+            height={typeof window !== 'undefined' ? window.innerHeight : 800}
+            recycle={false}
+            numberOfPieces={500}
+            gravity={0.3}
+          />
+        </div>
+      )}
+
       {isVisible && (
         <motion.div
           initial={{ opacity: 0 }}
@@ -162,12 +113,6 @@ export function BookPromotionPopup() {
             className="relative w-full max-w-[95vw] sm:max-w-md md:max-w-lg"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Close button - more visible on mobile */}
-            <button
-              onClick={handleDismiss}
-              className="absolute top-2 right-2 sm:-top-2 sm:-right-2 z-10 p-2 sm:p-2.5 rounded-full bg-background/95 backdrop-blur-sm border-2 border-border shadow-xl hover:bg-muted transition-all duration-200 hover:scale-110 active:scale-95"
-              aria-label="Close popup"
-            >
               <X className="h-6 w-6 sm:h-5 sm:w-5 stroke-[2.5]" />
             </button>
 

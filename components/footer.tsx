@@ -152,6 +152,15 @@ export function Footer() {
                   <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transform translate-x-2 group-hover:translate-x-0 transition-all duration-300" />
                 </Link>
               </li>
+              <li>
+                <Link
+                  href="/books/devops-survival-guide"
+                  className="group flex items-center justify-between text-muted-foreground hover:text-primary transition-all duration-300 py-2 px-3 rounded-xl hover:bg-primary/5"
+                >
+                  <span className="font-medium">DevOps Survival Guide</span>
+                  <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transform translate-x-2 group-hover:translate-x-0 transition-all duration-300" />
+                </Link>
+              </li>
             </ul>
           </div>
 
