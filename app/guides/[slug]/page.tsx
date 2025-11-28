@@ -1,5 +1,6 @@
 import { GuideContent } from '@/components/guide-content';
 import { GuideSidebar } from '@/components/guide-sidebar';
+import { InlineSponsors } from '@/components/inline-sponsors';
 import { getGuideBySlug, getAllGuides } from '@/lib/guides';
 import { notFound } from 'next/navigation';
 import { Breadcrumb } from '@/components/breadcrumb';
@@ -108,6 +109,9 @@ export default async function GuidePage({ params }: { params: Promise<{ slug: st
           <div className="lg:col-span-9">
             <article className="prose dark:prose-invert max-w-none">
               <GuideContent guide={guide} />
+
+              {/* Inline Sponsors */}
+              <InlineSponsors variant="full" />
 
               {/* Add navigation buttons */}
               {firstPart && (
