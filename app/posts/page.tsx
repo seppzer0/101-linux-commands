@@ -1,4 +1,5 @@
 import { PostsList } from '@/components/posts-list';
+import { PostsListWithoutSearch } from '@/components/posts-list-without-search';
 import { PageHeader } from '@/components/page-header';
 import { SponsorSidebar } from '@/components/sponsor-sidebar';
 import { InlineSponsors } from '@/components/inline-sponsors';
@@ -38,6 +39,10 @@ export const metadata = {
 export default async function PostsPage() {
   const posts = await getAllPosts();
 
+  // Split posts to insert sponsor block after first 6 posts
+  const postsBeforeSponsor = posts.slice(0, 6);
+  const postsAfterSponsor = posts.slice(6);
+
   return (
     <div className="container mx-auto px-4 py-8">
       <PageHeader
@@ -48,8 +53,12 @@ export default async function PostsPage() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 my-8">
         {/* Posts List */}
         <div className="lg:col-span-9">
-          <PostsList posts={posts} />
-          
+          <PostsList posts={postsBeforeSponsor} />
+
+          {/* Inline Sponsors */}
+          <InlineSponsors variant="banner" className="my-8" />
+
+          <PostsListWithoutSearch posts={postsAfterSponsor} />
         </div>
 
         {/* Sponsor Sidebar */}

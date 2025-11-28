@@ -104,43 +104,44 @@ export function InlineSponsors({ className, variant = 'full', showCTA = true }: 
   if (variant === 'compact') {
     return (
       <div className={cn('my-8', className)}>
-        <div className="rounded-xl border border-border/50 bg-muted/30 p-4">
-          <div className="flex items-center gap-2 mb-3">
+        <div className="rounded-xl border border-border/50 bg-muted/30 p-6 max-w-2xl mx-auto">
+          <div className="flex items-center justify-center gap-2 mb-4">
             <Sparkles className="h-4 w-4 text-primary" />
             <span className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">
               Our Sponsors
             </span>
           </div>
 
-          <div className="flex flex-wrap gap-3">
+          <div className="flex flex-wrap items-center justify-center gap-4">
             {sponsors.map((sponsor) => (
               <Link
                 key={sponsor.name}
                 href={sponsor.url}
                 target="_blank"
                 rel="noopener noreferrer sponsored"
-                className="group inline-flex items-center gap-2 px-4 py-2 bg-background rounded-lg border border-border hover:border-primary/50 transition-all duration-200 hover:shadow-md"
+                className="group inline-flex items-center gap-3 px-6 py-3 bg-background rounded-lg border border-border hover:border-primary/50 transition-all duration-200 hover:shadow-md"
                 title={sponsor.tagline}
               >
                 <Image
                   src={sponsor.logo || '/placeholder.svg'}
                   alt={sponsor.name}
-                  width={80}
-                  height={40}
-                  className={cn('h-auto w-auto max-h-8', sponsor.className)}
+                  width={120}
+                  height={60}
+                  className={cn('h-auto w-auto max-h-12', sponsor.className)}
                 />
-                <ExternalLink className="h-3 w-3 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
+                <ExternalLink className="h-4 w-4 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
               </Link>
             ))}
           </div>
 
           {showCTA && (
-            <div className="mt-3 pt-3 border-t border-border/50">
+            <div className="mt-4 pt-4 border-t border-border/50 text-center">
               <Link
                 href="/sponsorship"
-                className="text-xs text-muted-foreground hover:text-primary transition-colors"
+                className="text-sm text-muted-foreground hover:text-primary transition-colors inline-flex items-center gap-1"
               >
-                Become a sponsor →
+                <span>Become a sponsor</span>
+                <span>→</span>
               </Link>
             </div>
           )}
