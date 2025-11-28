@@ -39,9 +39,11 @@ export default async function GuidesPage() {
     <div className="container mx-auto px-4 py-8">
       <PageHeader title="Guides" description="In-depth guides for DevOps professionals" />
       
-      {/* Inline Sponsors */}
-      <InlineSponsors variant="compact" className="my-8" />
-      
+      <div className="container mx-auto max-w-6xl">
+        {/* Inline Sponsors */}
+        <InlineSponsors variant="compact" className="my-8" />
+      </div>
+
       <GuidesList guides={guides} className="my-8" />
     </div>
   );

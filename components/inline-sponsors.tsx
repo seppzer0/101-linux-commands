@@ -245,7 +245,7 @@ export function InlineSponsors({ className, variant = 'full', showCTA = true }: 
               </p>
               <Link
                 href="/sponsorship"
-                className="inline-flex items-center gap-2 px-6 py-2.5 bg-primary text-primary-foreground rounded-lg font-medium hover:bg-primary/90 transition-colors shadow-lg shadow-primary/20"
+                className="inline-flex items-center gap-2 px-6 py-2.5 bg-primary/10 border border-primary/20 text-primary rounded-lg font-medium hover:bg-primary/20 hover:border-primary/30 transition-colors"
               >
                 <Sparkles className="h-4 w-4" />
                 <span>Become a Sponsor</span>

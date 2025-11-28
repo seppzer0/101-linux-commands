@@ -1,7 +1,6 @@
 import { Metadata } from 'next';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { InlineSponsors } from '@/components/inline-sponsors';
 import {
   Card,
   CardContent,
@@ -406,9 +405,6 @@ export default function BooksPage() {
           </div>
         </div>
       </section>
-
-      {/* Inline Sponsors */}
-      <InlineSponsors variant="compact" className="mb-8" />
 
       {/* Books Section */}
       <section className="py-8 sm:py-12 lg:py-16">
