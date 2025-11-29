@@ -1,5 +1,6 @@
 import { GuidesList } from '@/components/guides-list';
 import { PageHeader } from '@/components/page-header';
+import { InlineSponsors } from '@/components/inline-sponsors';
 import { getAllGuides } from '@/lib/guides';
 
 export const metadata = {
@@ -37,6 +38,12 @@ export default async function GuidesPage() {
   return (
     <div className="container mx-auto px-4 py-8">
       <PageHeader title="Guides" description="In-depth guides for DevOps professionals" />
+      
+      <div className="container mx-auto max-w-6xl">
+        {/* Inline Sponsors */}
+        <InlineSponsors variant="compact" className="my-8" />
+      </div>
+
       <GuidesList guides={guides} className="my-8" />
     </div>
   );

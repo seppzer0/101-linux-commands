@@ -1,5 +1,6 @@
 import { PostContent } from '@/components/post-content';
 import { SponsorSidebar } from '@/components/sponsor-sidebar';
+import { InlineSponsors } from '@/components/inline-sponsors';
 import { OptimizedImage } from '@/components/optimized-image';
 import { getNewsBySlug, getAllNews } from '@/lib/news';
 import { notFound } from 'next/navigation';
@@ -148,6 +149,9 @@ export default async function NewsDigestPage({
 
               {/* Content */}
               <PostContent content={digest.content} />
+
+              {/* Inline Sponsors */}
+              <InlineSponsors variant="full" className="my-12" />
 
               {/* Report Issue */}
               <div className="mt-12 pt-8 border-t">

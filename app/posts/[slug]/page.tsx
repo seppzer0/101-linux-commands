@@ -1,6 +1,7 @@
 import { PostContent } from '@/components/post-content';
 import { PostHeader } from '@/components/post-header';
 import { SponsorSidebar } from '@/components/sponsor-sidebar';
+import { InlineSponsors } from '@/components/inline-sponsors';
 import { OptimizedImage } from '@/components/optimized-image';
 import { getPostBySlug, getAllPosts, getRelatedPosts } from '@/lib/posts';
 import { notFound, redirect } from 'next/navigation';
@@ -131,6 +132,9 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
                 </div>
               )}
               <PostContent content={post.content} />
+
+              {/* Inline Sponsors */}
+              <InlineSponsors variant="full" />
 
               {/* Add structured data for article */}
               <div className="pt-8 mt-8 border-t border-border">
