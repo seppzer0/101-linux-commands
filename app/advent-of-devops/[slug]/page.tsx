@@ -2,6 +2,7 @@ import { PostContent } from '@/components/post-content';
 import { SponsorSidebar } from '@/components/sponsor-sidebar';
 import { InlineSponsors } from '@/components/inline-sponsors';
 import { OptimizedImage } from '@/components/optimized-image';
+import { AdventDayClient } from '@/components/advent-day-client';
 import { getAdventDayBySlug, getAllAdventDays, getNextAdventDay, getPreviousAdventDay } from '@/lib/advent';
 import { notFound } from 'next/navigation';
 import { ArticleSchema, BreadcrumbSchema } from '@/components/schema-markup';
@@ -188,6 +189,9 @@ export default async function AdventDayPage({
               <div className="prose dark:prose-invert max-w-none">
                 <PostContent content={day.content} />
               </div>
+
+              {/* Completion Button */}
+              <AdventDayClient day={day.day} title={day.title} />
 
               {/* Social Sharing Call-to-Action */}
               <div className="mt-12 p-6 rounded-xl bg-gradient-to-br from-primary/10 via-background to-blue-500/10 border border-primary/20">
