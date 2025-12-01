@@ -21,9 +21,18 @@ export function GiscusComments({ className, title }: GiscusCommentsProps) {
 
   // Determine the theme to use for Giscus
   const giscusTheme = mounted ? (resolvedTheme === 'dark' ? 'dark' : 'light') : 'light';
+  
+  // Use title if provided, otherwise fall back to pathname
+  // Note: title should always be provided from the parent component
+  const discussionTerm = title || (typeof window !== 'undefined' ? window.location.pathname : '');
 
   if (!mounted) {
     return null;
+  }
+
+  // Log for debugging (remove after verification)
+  if (process.env.NODE_ENV === 'development') {
+    console.log('Giscus term:', discussionTerm);
   }
 
   return (
@@ -39,7 +48,7 @@ export function GiscusComments({ className, title }: GiscusCommentsProps) {
         category="General"
         categoryId="DIC_kwDOMUcYgs4ClPgN"
         mapping="specific"
-        term={title || typeof window !== 'undefined' ? window.location.pathname : ''}
+        term={discussionTerm}
         strict="0"
         reactionsEnabled="1"
         emitMetadata="0"
