@@ -160,7 +160,7 @@ export default async function NewsDigestPage({
               </div>
 
               {/* Giscus Discussions */}
-              <GiscusComments className="mt-12" />
+              <GiscusComments className="mt-12" title={digest.title} />
             </article>
           </main>
 

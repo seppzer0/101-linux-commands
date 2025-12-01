@@ -176,7 +176,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
             </div>
 
             {/* Giscus Discussions */}
-            <GiscusComments className="mt-12" />
+            <GiscusComments className="mt-12" title={post.title} />
 
             {mainRelatedPosts.length > 0 && (
                 <RelatedPosts

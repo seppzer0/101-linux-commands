@@ -7,9 +7,10 @@ import { MessageSquare } from 'lucide-react';
 
 interface GiscusCommentsProps {
   className?: string;
+  title?: string;
 }
 
-export function GiscusComments({ className }: GiscusCommentsProps) {
+export function GiscusComments({ className, title }: GiscusCommentsProps) {
   const { theme, resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
@@ -37,7 +38,8 @@ export function GiscusComments({ className }: GiscusCommentsProps) {
         repoId="R_kgDOMUcYgg"
         category="General"
         categoryId="DIC_kwDOMUcYgs4ClPgN"
-        mapping="pathname"
+        mapping="specific"
+        term={title || typeof window !== 'undefined' ? window.location.pathname : ''}
         strict="0"
         reactionsEnabled="1"
         emitMetadata="0"

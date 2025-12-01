@@ -156,7 +156,7 @@ export default async function GuidePage({ params }: { params: Promise<{ slug: st
             </div>
 
             {/* Giscus Discussions */}
-            <GiscusComments className="mt-12" />
+            <GiscusComments className="mt-12" title={guide.title} />
           </article>
           </div>
         </div>
