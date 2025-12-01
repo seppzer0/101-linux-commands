@@ -5,6 +5,7 @@ import { getAllGuides } from '@/lib/guides';
 import { getAllExercises } from '@/lib/exercises';
 import { getQuizMetadata } from '@/lib/quiz-loader';
 import { getAllNews } from '@/lib/news';
+import { getActiveGames } from '@/lib/games';
 
 export const dynamic = 'force-static';
 
@@ -12,13 +13,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://devops-daily.com';
 
   // Get all content
-  const [posts, categories, guides, exercises, quizzes, news] = await Promise.all([
+  const [posts, categories, guides, exercises, quizzes, news, games] = await Promise.all([
     getAllPosts(),
     getAllCategories(),
     getAllGuides(),
     getAllExercises(),
     getQuizMetadata(),
     getAllNews(),
+    getActiveGames(),
   ]);
 
   // Static routes
@@ -143,6 +145,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.8,
   }));
 
+  // Game routes (only active games, excludes coming soon)
+  const gameRoutes = games.map((game) => ({
+    url: `${baseUrl}${game.href}`,
+    lastModified: new Date(),
+    changeFrequency: 'monthly' as const,
+    priority: 0.7,
+  }));
+
   return [
     ...routes,
     ...postRoutes,
@@ -152,5 +162,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...exerciseRoutes,
     ...quizRoutes,
     ...newsRoutes,
+    ...gameRoutes,
   ];
 }
