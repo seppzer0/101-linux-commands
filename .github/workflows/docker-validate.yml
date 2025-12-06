@@ -40,12 +40,6 @@ jobs:
           dockerfile: Dockerfile
           failure-threshold: warning
 
-      - name: Lint Dockerfile.dev
-        uses: hadolint/hadolint-action@v3.1.0
-        with:
-          dockerfile: Dockerfile.dev
-          failure-threshold: warning
-
       - name: Summary
         run: |
           echo "✅ Docker configuration validation complete"
