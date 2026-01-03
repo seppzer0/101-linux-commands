@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
+import { Breadcrumb } from '@/components/breadcrumb';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -17,7 +18,6 @@ import {
   Clock,
   Zap,
   ArrowRight,
-  Home,
   Shuffle,
   Play,
   Pause,
@@ -605,21 +605,16 @@ export function CardsAgainstDevOps() {
     [gameState.currentBlackCard, gameState.round, gameState.gameHistory]
   );
 
+  const breadcrumbItems = [
+    { label: 'Games', href: '/games' },
+    { label: 'Cards Against DevOps', href: '/games/cards-against-devops', isCurrent: true },
+  ];
+
   return (
     <div className="min-h-screen bg-linear-to-br from-background via-background to-muted/20">
       <div className="container mx-auto px-4 py-6 sm:py-8">
         {/* Breadcrumb */}
-        <nav className="flex items-center space-x-2 text-sm text-muted-foreground mb-6">
-          <Link
-            href="/games"
-            className="hover:text-primary transition-colors flex items-center gap-1"
-          >
-            <Home className="w-4 h-4" />
-            Games
-          </Link>
-          <span>/</span>
-          <span className="text-foreground">Cards Against DevOps</span>
-        </nav>
+        <Breadcrumb items={breadcrumbItems} />
         {/* Header */}
         <div className="text-center mb-8">
           <motion.div

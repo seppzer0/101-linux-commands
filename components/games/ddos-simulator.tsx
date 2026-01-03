@@ -4,6 +4,7 @@ import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import { useTheme } from 'next-themes';
+import { Breadcrumb } from '@/components/breadcrumb';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -16,7 +17,6 @@ import {
   Shield,
   Activity,
   AlertTriangle,
-  Home,
   Info,
   Settings,
   Target,
@@ -121,6 +121,11 @@ export default function DDoSSimulator() {
   const { resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const isDark = resolvedTheme === 'dark';
+
+  const breadcrumbItems = [
+    { label: 'Games', href: '/games' },
+    { label: 'DDoS Simulator', href: '/games/ddos-simulator', isCurrent: true },
+  ];
 
   // Game state
   const [isRunning, setIsRunning] = useState(false);
@@ -561,17 +566,7 @@ export default function DDoSSimulator() {
     )}>
       <div className={cn("container mx-auto px-4 py-6 sm:py-8 transition-transform duration-200", screenShake && "animate-shake")}>
         {/* Breadcrumb */}
-        <nav className="flex items-center space-x-2 text-sm text-muted-foreground mb-6">
-          <Link
-            href="/games"
-            className="hover:text-primary transition-colors flex items-center gap-1"
-          >
-            <Home className="w-4 h-4" />
-            Games
-          </Link>
-          <span>/</span>
-          <span className="text-foreground">DDoS Simulator</span>
-        </nav>
+        <Breadcrumb items={breadcrumbItems} />
 
         {/* Achievement Notification */}
         <AnimatePresence>
