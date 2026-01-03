@@ -16,7 +16,6 @@ import {
   Shield,
   Activity,
   AlertTriangle,
-  Home,
   Info,
   Settings,
   Target,
@@ -560,19 +559,6 @@ export default function DDoSSimulator() {
         : "bg-gradient-to-br from-gray-50 via-blue-50 to-gray-50"
     )}>
       <div className={cn("container mx-auto px-4 py-6 sm:py-8 transition-transform duration-200", screenShake && "animate-shake")}>
-        {/* Breadcrumb */}
-        <nav className="flex items-center space-x-2 text-sm text-muted-foreground mb-6">
-          <Link
-            href="/games"
-            className="hover:text-primary transition-colors flex items-center gap-1"
-          >
-            <Home className="w-4 h-4" />
-            Games
-          </Link>
-          <span>/</span>
-          <span className="text-foreground">DDoS Simulator</span>
-        </nav>
-
         {/* Achievement Notification */}
         <AnimatePresence>
           {newAchievement && (

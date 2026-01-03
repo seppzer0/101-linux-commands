@@ -393,16 +393,10 @@ export default function DbmsSimulator() {
           >
             <Button size="lg" onClick={() => setPhase('explorer')} className="gap-2">
               <Play className="h-5 w-5" />
-              Start Exploring
-            </Button>
-            <Link href="/games">
-              <Button variant="outline" size="lg" className="gap-2">
-                <Home className="h-5 w-5" />
-                Back to Games
-              </Button>
-            </Link>
-          </motion.div>
-        </div>
+             Start Exploring
+           </Button>
+         </motion.div>
+       </div>
       </div>
     );
   }
@@ -427,14 +421,10 @@ export default function DbmsSimulator() {
             <div className="flex gap-2">
               <Button variant="outline" onClick={() => setPhase('playground')} className="gap-2">
                 <ArrowRight className="h-4 w-4" />
-                Try Playground
-              </Button>
-              <Button variant="outline" onClick={() => setPhase('intro')} className="gap-2">
-                <Home className="h-4 w-4" />
-                Home
-              </Button>
-            </div>
-          </motion.div>
+               Try Playground
+             </Button>
+           </div>
+         </motion.div>
 
           {/* DBMS Type Selector */}
           <motion.div
@@ -993,16 +983,10 @@ export default function DbmsSimulator() {
         >
           <Button onClick={resetGame} className="gap-2">
             <RotateCcw className="h-4 w-4" />
-            Play Again
-          </Button>
-          <Link href="/games">
-            <Button variant="outline" className="gap-2">
-              <Home className="h-4 w-4" />
-              Back to Games
-            </Button>
-          </Link>
-        </motion.div>
-      </div>
-    </div>
+           Play Again
+         </Button>
+       </motion.div>
+     </div>
+   </div>
   );
 }

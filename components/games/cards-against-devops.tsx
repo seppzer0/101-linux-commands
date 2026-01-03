@@ -17,7 +17,6 @@ import {
   Clock,
   Zap,
   ArrowRight,
-  Home,
   Shuffle,
   Play,
   Pause,
@@ -604,23 +603,9 @@ export function CardsAgainstDevOps() {
     },
     [gameState.currentBlackCard, gameState.round, gameState.gameHistory]
   );
-
-  return (
+return (
     <div className="min-h-screen bg-linear-to-br from-background via-background to-muted/20">
-      <div className="container mx-auto px-4 py-6 sm:py-8">
-        {/* Breadcrumb */}
-        <nav className="flex items-center space-x-2 text-sm text-muted-foreground mb-6">
-          <Link
-            href="/games"
-            className="hover:text-primary transition-colors flex items-center gap-1"
-          >
-            <Home className="w-4 h-4" />
-            Games
-          </Link>
-          <span>/</span>
-          <span className="text-foreground">Cards Against DevOps</span>
-        </nav>
-        {/* Header */}
+      <div className="container mx-auto px-4 py-6 sm:py-8">{/* Header */}
         <div className="text-center mb-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}

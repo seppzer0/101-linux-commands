@@ -380,19 +380,11 @@ const directionRef = useRef<Direction>('RIGHT');
            </h1>
          </div>
          <p className="text-xl text-slate-600 dark:text-gray-400 max-w-2xl mx-auto">
-           Control a glitch that infects healthy servers. Grow longer with each infection, but don't crash!
-         </p>
-          <div className="flex items-center justify-center gap-4">
-            <Link href="/games">
-              <Button variant="outline" size="sm" className="gap-2">
-                <Home className="w-4 h-4" />
-                All Games
-              </Button>
-            </Link>
-          </div>
-        </div>
+         Control a glitch that infects healthy servers. Grow longer with each infection, but don't crash!
+       </p>
+      </div>
 
-        {/* Game controls - above everything */}
+      {/* Game controls - above everything */}
        <Card className="bg-slate-100/90 dark:bg-slate-900/90 border-slate-300 dark:border-slate-700/50 backdrop-blur">
          <CardContent className="p-6">
             <div className="flex items-center justify-center gap-4">

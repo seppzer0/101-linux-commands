@@ -1,11 +1,36 @@
 import type { Metadata } from 'next';
+import { Breadcrumb } from '@/components/breadcrumb';
+import { BreadcrumbSchema } from '@/components/schema-markup';
 import ScalableSentry from '@/components/games/scalable-sentry';
 import { generateGameMetadata } from '@/lib/game-metadata';
+import { getGameById } from '@/lib/games';
 
 export async function generateMetadata(): Promise<Metadata> {
   return generateGameMetadata('scalable-sentry');
 }
 
-export default function ScalableSentryPage() {
-  return <ScalableSentry />;
+export default async function ScalableSentryPage() {
+  const game = await getGameById('scalable-sentry');
+  const gameTitle = game?.title || 'Scalable Sentry';
+
+  const breadcrumbItems = [
+    { label: 'Games', href: '/games' },
+    { label: gameTitle, href: '/games/scalable-sentry', isCurrent: true },
+  ];
+
+  const schemaItems = [
+    { name: 'Home', url: '/' },
+    { name: 'Games', url: '/games' },
+    { name: gameTitle, url: '/games/scalable-sentry' },
+  ];
+
+  return (
+    <>
+      <BreadcrumbSchema items={schemaItems} />
+      <div className="container px-4 py-8 mx-auto">
+        <Breadcrumb items={breadcrumbItems} />
+        <ScalableSentry />
+      </div>
+    </>
+  );
 }
