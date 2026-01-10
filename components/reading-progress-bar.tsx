@@ -16,12 +16,43 @@ export function ReadingProgressBar() {
     if (!mounted) return;
 
     const handleScroll = () => {
-      // Calculate the scroll progress
-      const scrollTop = window.scrollY;
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const scrollProgress = (scrollTop / docHeight) * 100;
+      // Find the article end marker (Published/Last updated section)
+      const articleEndElement = document.getElementById('article-end');
+      
+      if (!articleEndElement) {
+        // Fallback to full page if article not found
+        const scrollTop = window.scrollY;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const scrollProgress = (scrollTop / docHeight) * 100;
+        setProgress(Math.min(scrollProgress, 100));
+        setIsVisible(scrollTop > 100);
+        return;
+      }
 
-      setProgress(Math.min(scrollProgress, 100));
+      // Calculate progress based on article content ending at the metadata section
+      const scrollTop = window.scrollY;
+      const articleElement = document.querySelector('article.prose');
+      const articleTop = articleElement?.offsetTop || 0;
+      const articleEndTop = articleEndElement.offsetTop;
+      const articleEndBottom = articleEndTop + articleEndElement.offsetHeight;
+      
+      // Calculate how far through the article we are
+      const windowBottom = scrollTop + window.innerHeight;
+      
+      // Progress reaches 100% when we reach the end of the metadata section
+      if (scrollTop < articleTop) {
+        setProgress(0);
+      } else if (windowBottom >= articleEndBottom) {
+        // Cap at 100% once metadata section is fully visible
+        setProgress(100);
+      } else {
+        // Calculate progress through the article
+        const contentHeight = articleEndBottom - articleTop;
+        const articleScrolled = windowBottom - articleTop;
+        const totalArticleScroll = contentHeight;
+        const scrollProgress = (articleScrolled / totalArticleScroll) * 100;
+        setProgress(Math.max(0, Math.min(scrollProgress, 100)));
+      }
 
       // Show progress bar when user starts scrolling
       setIsVisible(scrollTop > 100);
