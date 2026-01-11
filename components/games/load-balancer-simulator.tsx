@@ -18,7 +18,7 @@ interface ServerState {
 interface RequestPacket {
   id: string;
   targetServer: number;
-  phase: 'to-lb' | 'to-server';
+  phase: 'to-lb' | 'exit-lb' | 'to-server';
 }
 
 // Distinct colors for each server - makes it crystal clear where requests go
@@ -105,6 +105,14 @@ export default function LoadBalancerSimulator() {
 
     setPackets((prev) => [...prev, { id: packetId, targetServer, phase: 'to-lb' }]);
 
+    // Phase 1 complete: arrived at LB center, now exit horizontally to line start
+    setTimeout(() => {
+      setPackets((prev) =>
+        prev.map((p) => (p.id === packetId ? { ...p, phase: 'exit-lb' } : p))
+      );
+    }, 350);
+
+    // Phase 2: at line start point (58%), now follow angled line to server
     setTimeout(() => {
       setPackets((prev) =>
         prev.map((p) => (p.id === packetId ? { ...p, phase: 'to-server' } : p))
@@ -112,8 +120,9 @@ export default function LoadBalancerSimulator() {
       setServers((prev) =>
         prev.map((s) => (s.id === targetServer ? { ...s, active: s.active + 1 } : s))
       );
-    }, 400);
+    }, 450);
 
+    // Phase 3: arrived at server, complete request
     setTimeout(() => {
       setPackets((prev) => prev.filter((p) => p.id !== packetId));
       setServers((prev) =>
@@ -123,7 +132,7 @@ export default function LoadBalancerSimulator() {
             : s
         )
       );
-    }, 900);
+    }, 950);
   }, [getTargetServer]);
 
   useEffect(() => {
@@ -301,17 +310,29 @@ export default function LoadBalancerSimulator() {
                       key={packet.id}
                       initial={{ left: '12%', top: '50%' }}
                       animate={{ left: '50%', top: '50%' }}
-                      transition={{ duration: 0.4, ease: 'linear' }}
+                      transition={{ duration: 0.35, ease: 'linear' }}
                       className="absolute w-5 h-5 rounded-full bg-blue-500 shadow-lg z-20 border-2 border-white"
                       style={{ transform: 'translate(-50%, -50%)' }}
                     />
                   );
-                } else {
-                  // Colored dot: Load Balancer → Server (matches server color)
+                } else if (packet.phase === 'exit-lb') {
+                  // Colored dot: exit LB horizontally to line start point (58%)
                   return (
                     <motion.div
                       key={packet.id}
                       initial={{ left: '50%', top: '50%' }}
+                      animate={{ left: '58%', top: '50%' }}
+                      transition={{ duration: 0.1, ease: 'linear' }}
+                      className="absolute w-5 h-5 rounded-full shadow-lg z-20 border-2 border-white"
+                      style={{ transform: 'translate(-50%, -50%)', backgroundColor: dotColor }}
+                    />
+                  );
+                } else {
+                  // Colored dot: follow angled line from 58% to server
+                  return (
+                    <motion.div
+                      key={packet.id}
+                      initial={{ left: '58%', top: '50%' }}
                       animate={{ left: '85%', top: `${serverY}%` }}
                       transition={{ duration: 0.5, ease: 'linear' }}
                       className="absolute w-5 h-5 rounded-full shadow-lg z-20 border-2 border-white"
