@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Play, Pause, RotateCcw, Users, Server } from 'lucide-react';
@@ -20,6 +20,13 @@ interface RequestPacket {
   targetServer: number;
   phase: 'to-lb' | 'to-server';
 }
+
+// Distinct colors for each server - makes it crystal clear where requests go
+const SERVER_COLORS = [
+  { bg: 'bg-emerald-500', hex: '#10b981', dimHex: '#d1fae5' },
+  { bg: 'bg-amber-500', hex: '#f59e0b', dimHex: '#fef3c7' },
+  { bg: 'bg-rose-500', hex: '#f43f5e', dimHex: '#ffe4e6' },
+];
 
 const ALGORITHMS: Record<AlgorithmType, { name: string; description: string }> = {
   'round-robin': {
@@ -52,6 +59,17 @@ export default function LoadBalancerSimulator() {
   const [roundRobinIndex, setRoundRobinIndex] = useState(0);
   const [clientHash] = useState(() => Math.floor(Math.random() * 3));
 
+  // Track which server lines are active (have packets going to them)
+  const activeServerLines = useMemo(() => {
+    const active = new Set<number>();
+    packets.forEach((p) => {
+      if (p.phase === 'to-server') {
+        active.add(p.targetServer);
+      }
+    });
+    return active;
+  }, [packets]);
+
   const getTargetServer = useCallback((): number => {
     switch (algorithm) {
       case 'round-robin': {
@@ -76,22 +94,17 @@ export default function LoadBalancerSimulator() {
     const targetServer = getTargetServer();
     const packetId = `req-${Date.now()}-${Math.random()}`;
 
-    // Create packet going to load balancer
     setPackets((prev) => [...prev, { id: packetId, targetServer, phase: 'to-lb' }]);
 
-    // After 500ms, switch to going to server
     setTimeout(() => {
       setPackets((prev) =>
         prev.map((p) => (p.id === packetId ? { ...p, phase: 'to-server' } : p))
       );
-
-      // Increment active connections
       setServers((prev) =>
         prev.map((s) => (s.id === targetServer ? { ...s, active: s.active + 1 } : s))
       );
-    }, 500);
+    }, 400);
 
-    // After 1000ms, complete the request
     setTimeout(() => {
       setPackets((prev) => prev.filter((p) => p.id !== packetId));
       setServers((prev) =>
@@ -101,12 +114,12 @@ export default function LoadBalancerSimulator() {
             : s
         )
       );
-    }, 1000);
+    }, 900);
   }, [getTargetServer]);
 
   useEffect(() => {
     if (!isRunning) return;
-    const interval = setInterval(sendRequest, 800);
+    const interval = setInterval(sendRequest, 600);
     return () => clearInterval(interval);
   }, [isRunning, sendRequest]);
 
@@ -126,9 +139,12 @@ export default function LoadBalancerSimulator() {
 
   return (
     <div className="space-y-6">
-      <Card>
-        <CardHeader>
-          <CardTitle>Load Balancer Simulator</CardTitle>
+      <Card className="max-w-6xl mx-auto">
+        <CardHeader className="pb-2">
+          <CardTitle className="flex items-center gap-2">
+            <Server className="h-5 w-5" />
+            Load Balancer Simulator
+          </CardTitle>
           <p className="text-sm text-muted-foreground mt-1">
             Watch how a load balancer distributes incoming user requests across multiple servers
           </p>
@@ -174,82 +190,100 @@ export default function LoadBalancerSimulator() {
             </p>
           </div>
 
-          {/* Main Diagram - Simple left-to-right flow */}
-          <div className="relative h-80 bg-slate-50 dark:bg-slate-900 rounded-lg border overflow-hidden">
+          {/* Main Diagram - Wide layout */}
+          <div className="relative h-[420px] bg-gradient-to-r from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800 rounded-xl border-2 overflow-hidden">
             {/* Connection lines (SVG) */}
             <svg className="absolute inset-0 w-full h-full" style={{ zIndex: 1 }}>
-              {/* Users to Load Balancer */}
-              <line x1="15%" y1="50%" x2="45%" y2="50%" stroke="#cbd5e1" strokeWidth="2" strokeDasharray="6 4" />
-              {/* Load Balancer to each Server */}
-              {serverYPositions.map((y) => (
-                <line key={y} x1="55%" y1="50%" x2="85%" y2={`${y}%`} stroke="#cbd5e1" strokeWidth="2" strokeDasharray="6 4" />
-              ))}
+              {/* Users to Load Balancer - single line */}
+              <line
+                x1="12%"
+                y1="50%"
+                x2="42%"
+                y2="50%"
+                stroke="#94a3b8"
+                strokeWidth="3"
+                strokeDasharray="8 4"
+              />
+              {/* Load Balancer to each Server - colored lines that light up */}
+              {serverYPositions.map((y, idx) => {
+                const isActive = activeServerLines.has(idx + 1);
+                return (
+                  <line
+                    key={y}
+                    x1="58%"
+                    y1="50%"
+                    x2="82%"
+                    y2={`${y}%`}
+                    stroke={isActive ? SERVER_COLORS[idx].hex : SERVER_COLORS[idx].dimHex}
+                    strokeWidth={isActive ? 5 : 3}
+                    strokeDasharray={isActive ? '0' : '8 4'}
+                    style={{ transition: 'stroke 0.15s, stroke-width 0.15s' }}
+                  />
+                );
+              })}
             </svg>
 
             {/* Users (Left) */}
-            <div className="absolute left-[10%] top-1/2 -translate-y-1/2 z-10 text-center">
-              <div className="w-16 h-16 rounded-full bg-blue-500 flex items-center justify-center shadow-lg mx-auto">
-                <Users className="h-8 w-8 text-white" />
+            <div className="absolute left-[6%] top-1/2 -translate-y-1/2 z-10 text-center">
+              <div className="w-20 h-20 rounded-full bg-blue-500 flex items-center justify-center shadow-lg mx-auto border-4 border-white dark:border-slate-700">
+                <Users className="h-10 w-10 text-white" />
               </div>
-              <div className="mt-2 text-sm font-medium">Users</div>
+              <div className="mt-2 text-sm font-semibold">Users</div>
             </div>
 
             {/* Load Balancer (Center) */}
             <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 text-center">
-              <div className="w-20 h-20 rounded-lg bg-purple-600 flex items-center justify-center shadow-lg mx-auto">
-                <span className="text-white text-xs font-bold text-center leading-tight">Load<br/>Balancer</span>
+              <div className="w-24 h-24 rounded-xl bg-purple-600 flex items-center justify-center shadow-xl mx-auto border-4 border-white dark:border-slate-700">
+                <span className="text-white text-sm font-bold text-center leading-tight">Load<br/>Balancer</span>
               </div>
-              <div className="mt-2 text-xs text-muted-foreground">{ALGORITHMS[algorithm].name}</div>
+              <div className="mt-2 text-xs font-medium text-muted-foreground">{ALGORITHMS[algorithm].name}</div>
             </div>
 
-            {/* Servers (Right) */}
-            <div className="absolute right-[5%] top-0 bottom-0 flex flex-col justify-around py-4 z-10">
+            {/* Servers (Right) - Clean layout without extra text */}
+            <div className="absolute right-[6%] top-0 bottom-0 flex flex-col justify-around py-8 z-10">
               {servers.map((server, idx) => (
-                <div key={server.id} className="flex items-center gap-2">
-                  <div className="w-14 h-14 rounded-lg bg-green-600 flex items-center justify-center shadow-lg">
-                    <Server className="h-7 w-7 text-white" />
+                <div key={server.id} className="text-center">
+                  <div
+                    className={`w-20 h-20 rounded-xl ${SERVER_COLORS[idx].bg} flex items-center justify-center shadow-lg mx-auto border-4 border-white dark:border-slate-700 transition-transform ${
+                      activeServerLines.has(server.id) ? 'scale-110' : ''
+                    }`}
+                  >
+                    <Server className="h-9 w-9 text-white" />
                   </div>
-                  <div className="text-left">
-                    <div className="text-sm font-medium">{server.name}</div>
-                    <div className="text-xs text-muted-foreground">
-                      {server.requests} handled
-                      {server.active > 0 && (
-                        <span className="ml-1 text-orange-500">({server.active} active)</span>
-                      )}
-                    </div>
-                  </div>
+                  <div className="mt-2 text-sm font-semibold">{server.name}</div>
                 </div>
               ))}
             </div>
 
-            {/* Animated Packets */}
+            {/* Animated Packets - Follow the colored lines */}
             <AnimatePresence>
               {packets.map((packet) => {
                 const serverIdx = packet.targetServer - 1;
                 const serverY = serverYPositions[serverIdx];
+                const dotColor = SERVER_COLORS[serverIdx].hex;
 
                 if (packet.phase === 'to-lb') {
-                  // Animate from Users (15%) to Load Balancer (50%)
+                  // Blue dot: Users → Load Balancer
                   return (
                     <motion.div
                       key={packet.id}
-                      initial={{ left: '15%', top: '50%' }}
+                      initial={{ left: '12%', top: '50%' }}
                       animate={{ left: '50%', top: '50%' }}
-                      transition={{ duration: 0.5, ease: 'linear' }}
-                      className="absolute w-4 h-4 rounded-full bg-blue-500 shadow-lg z-20"
+                      transition={{ duration: 0.4, ease: 'linear' }}
+                      className="absolute w-5 h-5 rounded-full bg-blue-500 shadow-lg z-20 border-2 border-white"
                       style={{ transform: 'translate(-50%, -50%)' }}
                     />
                   );
                 } else {
-                  // Animate from Load Balancer (50%) to Server (85%)
+                  // Colored dot: Load Balancer → Server (matches server color)
                   return (
                     <motion.div
                       key={packet.id}
                       initial={{ left: '50%', top: '50%' }}
-                      animate={{ left: '85%', top: `${serverY}%` }}
+                      animate={{ left: '82%', top: `${serverY}%` }}
                       transition={{ duration: 0.5, ease: 'linear' }}
-                      className="absolute w-4 h-4 rounded-full bg-green-500 shadow-lg z-20"
-                      style={{ transform: 'translate(-50%, -50%)' }}
+                      className="absolute w-5 h-5 rounded-full shadow-lg z-20 border-2 border-white"
+                      style={{ transform: 'translate(-50%, -50%)', backgroundColor: dotColor }}
                     />
                   );
                 }
@@ -257,12 +291,20 @@ export default function LoadBalancerSimulator() {
             </AnimatePresence>
           </div>
 
-          {/* Simple Stats */}
+          {/* Stats - Color coded to match servers */}
           <div className="grid grid-cols-3 gap-4">
-            {servers.map((server) => (
-              <div key={server.id} className="bg-slate-100 dark:bg-slate-800 rounded-lg p-4 text-center">
-                <div className="text-sm font-medium">{server.name}</div>
-                <div className="text-3xl font-bold text-green-600">{server.requests}</div>
+            {servers.map((server, idx) => (
+              <div
+                key={server.id}
+                className="rounded-lg p-4 text-center border-2"
+                style={{ borderColor: SERVER_COLORS[idx].hex, backgroundColor: SERVER_COLORS[idx].dimHex }}
+              >
+                <div className="text-sm font-semibold" style={{ color: SERVER_COLORS[idx].hex }}>
+                  {server.name}
+                </div>
+                <div className="text-3xl font-bold" style={{ color: SERVER_COLORS[idx].hex }}>
+                  {server.requests}
+                </div>
                 <div className="text-xs text-muted-foreground">requests handled</div>
               </div>
             ))}
