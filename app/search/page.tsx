@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { Suspense } from 'react';
 import { SearchPageClient } from '@/components/search-page-client';
 
 export const metadata: Metadata = {
@@ -12,5 +13,20 @@ export const metadata: Metadata = {
 };
 
 export default function SearchPage() {
-  return <SearchPageClient />;
+  return (
+    <Suspense fallback={
+      <div className="container mx-auto px-4 py-8">
+        <div className="animate-pulse">
+          <div className="h-10 bg-muted rounded w-full max-w-xl mb-8" />
+          <div className="space-y-4">
+            {[1, 2, 3].map((i) => (
+              <div key={i} className="h-24 bg-muted rounded" />
+            ))}
+          </div>
+        </div>
+      </div>
+    }>
+      <SearchPageClient />
+    </Suspense>
+  );
 }
