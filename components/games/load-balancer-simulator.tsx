@@ -23,9 +23,9 @@ interface RequestPacket {
 
 // Distinct colors for each server - makes it crystal clear where requests go
 const SERVER_COLORS = [
-  { bg: 'bg-emerald-500', hex: '#10b981', dimHex: '#d1fae5' },
-  { bg: 'bg-amber-500', hex: '#f59e0b', dimHex: '#fef3c7' },
-  { bg: 'bg-rose-500', hex: '#f43f5e', dimHex: '#ffe4e6' },
+  { bg: 'bg-emerald-500', hex: '#10b981', dimHex: '#6ee7b7' },
+  { bg: 'bg-amber-500', hex: '#f59e0b', dimHex: '#fcd34d' },
+  { bg: 'bg-rose-500', hex: '#f43f5e', dimHex: '#fda4af' },
 ];
 
 const ALGORITHMS: Record<AlgorithmType, { name: string; description: string }> = {
