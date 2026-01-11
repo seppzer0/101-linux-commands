@@ -544,10 +544,10 @@ export function Header() {
         <div className="hidden lg:flex lg:flex-1 lg:justify-end lg:gap-x-3">
           <Link
             href="/search"
-            className="flex items-center gap-2 px-3 py-2 text-sm text-muted-foreground bg-muted/50 hover:bg-muted rounded-lg transition-colors border border-border/50 hover:border-border"
+            className="flex items-center gap-2 px-4 py-2.5 text-sm font-medium rounded-xl transition-all duration-300 hover:bg-primary/8 hover:text-primary hover:shadow-sm"
           >
             <Search className="w-4 h-4" />
-            <span>Search...</span>
+            <span>Search</span>
           </Link>
           <ThemeToggle />
         </div>
