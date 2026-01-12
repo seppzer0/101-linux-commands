@@ -601,7 +601,7 @@ function SearchResultCard({
 
           {/* Content */}
           <div className="flex-1 min-w-0">
-            <div className="flex items-center gap-2 mb-1">
+            <div className="flex items-center gap-2 mb-1 flex-wrap">
               <Badge variant="secondary" className="text-xs">
                 {TYPE_LABELS[result.type]}
               </Badge>
@@ -609,6 +609,15 @@ function SearchResultCard({
                 <Badge variant="outline" className="text-xs">
                   {result.category}
                 </Badge>
+              )}
+              {result.date && (
+                <span className="text-xs text-muted-foreground ml-auto">
+                  {new Date(result.date).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric',
+                  })}
+                </span>
               )}
             </div>
 
