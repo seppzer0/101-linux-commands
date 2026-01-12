@@ -21,7 +21,8 @@ export interface SearchFilters {
   types: string[];
   categories: string[];
   tags: string[];
-  sortBy: 'relevance' | 'title' | 'type' | 'newest' | 'oldest';
+  sortBy: 'relevance' | 'title' | 'type' | 'date';
+  sortDirection: 'asc' | 'desc';
 }
 
 export const DEFAULT_FILTERS: SearchFilters = {
@@ -29,6 +30,7 @@ export const DEFAULT_FILTERS: SearchFilters = {
   categories: [],
   tags: [],
   sortBy: 'relevance',
+  sortDirection: 'desc',
 };
 
 const FUSE_OPTIONS: Fuse.IFuseOptions<SearchItem> = {
@@ -87,21 +89,17 @@ export function searchWithFuse(
   }
 
   // Apply sorting
+  const direction = filters.sortDirection === 'asc' ? 1 : -1;
+  
   if (filters.sortBy === 'title') {
-    results.sort((a, b) => a.title.localeCompare(b.title));
+    results.sort((a, b) => direction * a.title.localeCompare(b.title));
   } else if (filters.sortBy === 'type') {
-    results.sort((a, b) => a.type.localeCompare(b.type));
-  } else if (filters.sortBy === 'newest') {
+    results.sort((a, b) => direction * a.type.localeCompare(b.type));
+  } else if (filters.sortBy === 'date') {
     results.sort((a, b) => {
       const dateA = a.date ? new Date(a.date).getTime() : 0;
       const dateB = b.date ? new Date(b.date).getTime() : 0;
-      return dateB - dateA;
-    });
-  } else if (filters.sortBy === 'oldest') {
-    results.sort((a, b) => {
-      const dateA = a.date ? new Date(a.date).getTime() : 0;
-      const dateB = b.date ? new Date(b.date).getTime() : 0;
-      return dateA - dateB;
+      return direction * (dateA - dateB);
     });
   }
   // 'relevance' sorting is already applied by Fuse.js

@@ -16,7 +16,8 @@ import {
   X,
   Filter,
   SlidersHorizontal,
-  ArrowUpDown,
+  ArrowUp,
+  ArrowDown,
   Hash,
   Loader2,
   Sparkles,
@@ -102,8 +103,9 @@ export function SearchPageClient() {
     const categories = searchParams.get('categories')?.split(',').filter(Boolean) || [];
     const tags = searchParams.get('tags')?.split(',').filter(Boolean) || [];
     const sortBy = (searchParams.get('sort') as SearchFilters['sortBy']) || 'relevance';
+    const sortDirection = (searchParams.get('dir') as SearchFilters['sortDirection']) || 'desc';
 
-    setFilters({ types, categories, tags, sortBy });
+    setFilters({ types, categories, tags, sortBy, sortDirection });
   }, [searchParams]);
 
   // Update URL when query or filters change
@@ -115,6 +117,7 @@ export function SearchPageClient() {
       if (newFilters.categories.length > 0) params.set('categories', newFilters.categories.join(','));
       if (newFilters.tags.length > 0) params.set('tags', newFilters.tags.join(','));
       if (newFilters.sortBy !== 'relevance') params.set('sort', newFilters.sortBy);
+      if (newFilters.sortDirection !== 'desc') params.set('dir', newFilters.sortDirection);
 
       const newURL = params.toString() ? `/search?${params.toString()}` : '/search';
       router.replace(newURL, { scroll: false });
@@ -257,7 +260,8 @@ export function SearchPageClient() {
     filters.types.length > 0 ||
     filters.categories.length > 0 ||
     filters.tags.length > 0 ||
-    filters.sortBy !== 'relevance';
+    filters.sortBy !== 'relevance' ||
+    filters.sortDirection !== 'desc';
 
   return (
     <div className="container mx-auto px-4 py-8 max-w-6xl">
@@ -342,25 +346,42 @@ export function SearchPageClient() {
           )}
         </div>
 
-        <div className="flex items-center gap-2">
-          <ArrowUpDown className="w-4 h-4 text-muted-foreground" />
+       <div className="flex items-center gap-2">
           <Select
             value={filters.sortBy}
             onValueChange={(value) =>
               handleFilterChange({ ...filters, sortBy: value as SearchFilters['sortBy'] })
             }
           >
-            <SelectTrigger className="w-40">
+            <SelectTrigger className="w-32">
               <SelectValue placeholder="Sort by" />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="relevance">Relevance</SelectItem>
-              <SelectItem value="title">Title A-Z</SelectItem>
-              <SelectItem value="type">Content Type</SelectItem>
-              <SelectItem value="newest">Newest First</SelectItem>
-              <SelectItem value="oldest">Oldest First</SelectItem>
+              <SelectItem value="title">Title</SelectItem>
+              <SelectItem value="type">Type</SelectItem>
+              <SelectItem value="date">Date</SelectItem>
             </SelectContent>
           </Select>
+          {filters.sortBy !== 'relevance' && (
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() =>
+                handleFilterChange({
+                  ...filters,
+                  sortDirection: filters.sortDirection === 'asc' ? 'desc' : 'asc',
+                })
+              }
+              title={filters.sortDirection === 'asc' ? 'Ascending' : 'Descending'}
+            >
+              {filters.sortDirection === 'asc' ? (
+                <ArrowUp className="w-4 h-4" />
+              ) : (
+                <ArrowDown className="w-4 h-4" />
+              )}
+            </Button>
+          )}
         </div>
       </div>
 
