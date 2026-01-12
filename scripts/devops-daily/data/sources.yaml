@@ -89,12 +89,6 @@ sources:
     category: "CI/CD"
     priority: "medium"
 
-  - name: "Tekton Blog"
-    type: "web"
-    url: "https://tekton.dev/blog/"
-    category: "CI/CD"
-    priority: "medium"
-
   - name: "Harness Blog"
     type: "rss"
     url: "https://www.harness.io/blog/rss.xml"
@@ -120,12 +114,6 @@ sources:
     category: "IaC"
     priority: "low"
 
-  - name: "Crossplane Blog"
-    type: "web"
-    url: "https://blog.crossplane.io/"
-    category: "IaC"
-    priority: "medium"
-
   # Observability & Monitoring
   - name: "Grafana Blog"
     type: "rss"
@@ -136,12 +124,6 @@ sources:
   - name: "New Relic Blog"
     type: "rss"
     url: "https://blog.newrelic.com/feed/"
-    category: "Observability"
-    priority: "medium"
-
-  - name: "Dynatrace Blog"
-    type: "rss"
-    url: "https://www.dynatrace.com/news/blog/feed/"
     category: "Observability"
     priority: "medium"
 
@@ -170,24 +152,12 @@ sources:
     category: "Security"
     priority: "high"
 
-  - name: "Kyverno Blog"
-    type: "web"
-    url: "https://kyverno.io/blog/"
-    category: "Security"
-    priority: "medium"
-
   # Service Mesh & Networking
   - name: "Istio Blog"
     type: "rss"
     url: "https://istio.io/latest/blog/feed.xml"
     category: "Cloud Native"
     priority: "high"
-
-  - name: "Envoy Proxy Blog"
-    type: "web"
-    url: "https://blog.envoyproxy.io/"
-    category: "Cloud Native"
-    priority: "medium"
 
   - name: "Cilium Blog"
     type: "rss"
@@ -227,24 +197,12 @@ sources:
     category: "Cloud Native"
     priority: "high"
 
-  - name: "Buildah Blog"
-    type: "web"
-    url: "https://buildah.io/blogs/"
-    category: "Cloud Native"
-    priority: "low"
-
   # Package Management & Helm
   - name: "Helm Blog"
     type: "web"
     url: "https://helm.sh/blog/"
     category: "Kubernetes"
     priority: "high"
-
-  - name: "Artifact Hub News"
-    type: "web"
-    url: "https://artifacthub.io/blog/"
-    category: "Kubernetes"
-    priority: "low"
 
   # Serverless & FaaS
   - name: "OpenFaaS Blog"
@@ -256,15 +214,8 @@ sources:
   # Edge Computing
   - name: "k0s Blog"
     type: "web"
-    url: "https://k0sproject.io/blog/"
+    url: "https://blog.k0sproject.io/"
     category: "Kubernetes"
-    priority: "low"
-
-  # Chaos Engineering
-  - name: "Chaos Mesh Blog"
-    type: "web"
-    url: "https://chaos-mesh.org/blog/"
-    category: "Observability"
     priority: "low"
 
   # Industry News & Aggregators
@@ -279,18 +230,6 @@ sources:
     url: "https://thenewstack.io/feed/"
     category: "Misc"
     priority: "high"
-
-  - name: "DZone DevOps"
-    type: "rss"
-    url: "https://feeds.dzone.com/devops"
-    category: "Misc"
-    priority: "low"
-
-  - name: "SRE Weekly"
-    type: "rss"
-    url: "https://sreweekly.com/feed/"
-    category: "Misc"
-    priority: "medium"
 
   # Additional CNCF Projects
   - name: "etcd Blog"
@@ -511,7 +450,7 @@ sources:
 
   - name: "Nagios Blog"
     type: "web"
-    url: "https://www.nagios.com/news/"
+    url: "https://www.nagios.com/articles/"
     category: "Observability"
     priority: "low"
 
@@ -521,12 +460,6 @@ sources:
     url: "https://goharbor.io/blog/"
     category: "Cloud Native"
     priority: "medium"
-
-  - name: "Quay Blog"
-    type: "web"
-    url: "https://www.redhat.com/en/technologies/cloud-computing/quay"
-    category: "Cloud Native"
-    priority: "low"
 
   # Additional Build Tools
   - name: "Bazel Blog"
